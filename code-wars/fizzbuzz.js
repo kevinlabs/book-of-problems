@@ -24,6 +24,4 @@ function fizzBuzz(n) {
 }
 
 console.log('Showing result: ', fizzBuzz(30));
-
-
 console.log('Show me test ', 10 % 3, 10 % 5)
