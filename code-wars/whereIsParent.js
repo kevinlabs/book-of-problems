@@ -1,30 +1,55 @@
 function findChildren(dancingBrigade) {
-    var tempStringArray = dancingBrigade.split('');
-    tempStringArray = tempStringArray.sort();
-    console.log('show me the result: ', tempStringArray);
+  var strArray = dancingBrigade.split('').sort();
+  var returnArray = [];
+  var listOfUpperCase = {};
+  var listOfLowerCase = {};
 
-    var upper = {};
-    var lower = {};
+  const upperReg = /[A-Z]/;
+  const lowerReg = /[a-z]/;
 
-    var upRe = /[A-Z]/;
-    var lowRe = /[a-z]/;
+  for (let i = 0; i < strArray.length; i++) {
+    if (upperReg.test(strArray[i])) {
+      if (listOfUpperCase[strArray[i]]) {
+        listOfUpperCase[strArray[i]] += 1;
+      } else {
+        listOfUpperCase[strArray[i]] = 1;
+      }
+    } else if (lowerReg.test(strArray[i])) {
+      if (listOfLowerCase[strArray[i]]) {
+        listOfLowerCase[strArray[i]] += 1;
+      } else {
+        listOfLowerCase[strArray[i]] = 1;
+      }
+    }
+  }
 
-    for (var index = 0; index < tempStringArray.length; index++) {
-        console.log('Showing forloop val:', tempStringArray[index]);
-        if (upRe.test(tempStringArray[index])) {
-            testArray.push(tempStringArray[index]);
-        } else if (lowRe.test(tempStringArray[index])) {
-            
+  for (let i = 65; i < 91; i++) {
+    let targetAlphabet = String.fromCharCode(i);
+
+    if (listOfUpperCase[targetAlphabet]) {
+      if (listOfUpperCase[targetAlphabet] > 1) {
+        for (let i = 0; i < listOfUpperCase[targetAlphabet]; i++) {
+          returnArray.push(targetAlphabet);
         }
+      } else {
+        returnArray.push(targetAlphabet);
+      }
     }
 
-    console.log('showing upper object: ', testArray);
+    if (listOfLowerCase[targetAlphabet.toLowerCase()]) {
+      let lowerCaseAlphabet = targetAlphabet.toLowerCase();
+      if (listOfLowerCase[lowerCaseAlphabet] > 1) {
+        for (let i = 0; i < listOfLowerCase[lowerCaseAlphabet]; i++) {
+          returnArray.push(lowerCaseAlphabet);
+        }
+      } else {
+        returnArray.push(lowerCaseAlphabet);
+      }
+    }
+  }
+
+  return returnArray.join('');
+
 }
 
 findChildren("beeeEBb");
-
-//Test.expect("BbbEeee" == findChildren("beeeEBb"));
-//Test.expect("EeeUuuWww" == findChildren("uwwWUueEe"));
-
-//Make object of capital and remove them.
-//Make object of lower case and remove them ad order.
