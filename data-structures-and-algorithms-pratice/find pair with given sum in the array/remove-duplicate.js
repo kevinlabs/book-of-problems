@@ -25,5 +25,5 @@ var sum = 10;
 findPair(arr, sum);
 
 
-// This approach remove the duplicate pairs.
+// This approach removes the duplicate pairs.
 // (O)^2
