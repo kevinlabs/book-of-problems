@@ -26,4 +26,4 @@ findPair(arr, sum);
 
 
 // This approach removes the duplicate pairs.
-// (O)^2
+// O(n^2)

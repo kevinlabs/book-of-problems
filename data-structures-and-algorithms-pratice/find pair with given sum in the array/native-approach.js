@@ -19,4 +19,4 @@ findPair(arr, sum);
 
 
 // This approach would be.
-// (O)^2
+// o(n^2)
