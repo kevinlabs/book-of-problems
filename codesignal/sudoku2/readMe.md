@@ -1,0 +1,1 @@
+## Verifies Sudoku map structure.
