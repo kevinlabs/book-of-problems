@@ -15,8 +15,9 @@ function isValidSubsequence(array, sequence) {
   for (let i = 0; i < array.length; i++) {
     if (numHashMap.hasOwnProperty(array[i])) {
       numHashMap[array[i]].count += 1;
+      numHashMap[array[i]].index.push(i);
     } else {
-      numHashMap[array[i]] = { count: 1, index: i };
+      numHashMap[array[i]] = { count: 1, index: [i], indexCount: 0};
     }
   }
 
@@ -26,12 +27,35 @@ function isValidSubsequence(array, sequence) {
 
       //Valid order sequence verification
       if (i === 0) {
-        previousIndexVal = numHashMap[sequence[i]].index;
+        previousIndexVal = numHashMap[sequence[i]].index[0];
+        numHashMap[sequence[i]].indexCount += 1;
       } else {
-        if (previousIndexVal >= numHashMap[sequence[i]].index) {
-          return false;
+        
+        let targetIndexArrayLength = numHashMap[sequence[i]].index.length;
+        let targetIndexCount = numHashMap[sequence[i]].indexCount;
+
+        if(targetIndexArrayLength > 1 && targetIndexArrayLength > targetIndexCount) {
+          if(targetIndexCount < 1) {
+            if (previousIndexVal >= numHashMap[sequence[i]].index[0]) {
+              return false;
+            } else {
+              previousIndexVal = numHashMap[sequence[i]].index[0];
+              numHashMap[sequence[i]].indexCount += 1;
+            }
+          } else if (targetIndexCount >= 1) {
+            if (previousIndexVal >= numHashMap[sequence[i]].index[targetIndexCount]) {
+              return false;
+            } else {
+              previousIndexVal = numHashMap[sequence[i]].index[targetIndexCount];
+              numHashMap[sequence[i]].indexCount += 1;
+            }
+          }
         } else {
-          previousIndexVal = numHashMap[sequence[i]].index;
+          if (previousIndexVal >= numHashMap[sequence[i]].index[0]) {
+            return false;
+          } else {
+            previousIndexVal = numHashMap[sequence[i]].index[0];
+          }
         }
       }
 
@@ -73,6 +97,6 @@ Big O: O^N  space: O^N
 
 //Duplicate repeated numbers.
 var test1 = [1, 1, 1, 1, 1];
-var test2 = [1, 1, 1];
+var test2 = [1, 1, 1,];
 
 console.log('Showing return val: ', isValidSubsequence(test1, test2));
