@@ -73,9 +73,7 @@ function getUrimOrThummim() {
 
   if (arrayRandom[pickerRandom[indexPicker]] === 0) {
     returnVal = 'T'
-  }
-
-  if (arrayRandom[pickerRandom[indexPicker]] === 1) {
+  } else if (arrayRandom[pickerRandom[indexPicker]] === 1) {
     returnVal = 'U'
   }
 
