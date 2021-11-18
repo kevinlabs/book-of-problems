@@ -23,6 +23,7 @@ function advancedCoinToss(round, numberOfDraw) {
     let currentRoundUrimTotal = 0;
     let currentRoundThummimTotal = 0;
     let currentRoundWinner;
+    let totalRoundsWinner;
 
     for (let j = 0; j < numberOfDraw; j++) {
       let draw = getUrimOrThummim();
@@ -49,11 +50,37 @@ function advancedCoinToss(round, numberOfDraw) {
     rounds.push(['Round ' + (i + 1), currentRoundWinner]);
   }
 
-  console.log('Showing draws: ', draws);
-  console.log('Showing total Urim Nad THummim : ', totalUrimAndThummim);
-  console.log('Showing total Round winner : ', rounds);
+  totalRoundsWinner = calculateRoundWinner(rounds);
 
-  return { draws, totalUrimAndThummim, rounds }
+  console.log('Showing draws: ', draws);
+  console.log('Showing total Urim and Thummim : ', totalUrimAndThummim);
+  console.log('Showing total Round winner : ', totalRoundsWinner);
+
+  return { draws, totalUrimAndThummim, totalRoundsWinner}
+}
+
+function calculateRoundWinner(rounds) {
+  let roundTotalUrim = 0;
+  let roundTotalThummim = 0;
+  let totalRoundsWinner = '';
+
+  for (let i = 0; i < rounds.length; i++) {
+    if (rounds[i][1] === 'T') {
+      roundTotalThummim += 1;
+    } else if (rounds[i][1] === 'U') {
+      roundTotalUrim += 1;
+    }
+  }
+
+  if(roundTotalUrim > roundTotalThummim) {
+    totalRoundsWinner = 'Urim';
+  } else if (roundTotalThummim > roundTotalUrim) {
+    totalRoundsWinner = 'Thummim';
+  } else {
+    totalRoundsWinner = 'Even';
+  }
+
+  return totalRoundsWinner;
 }
 
 function getUrimOrThummim() {
