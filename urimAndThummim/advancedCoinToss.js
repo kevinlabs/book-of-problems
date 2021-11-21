@@ -38,19 +38,14 @@ function advancedCoinToss(round, numberOfDraw) {
       currentRoundDraw.push(draw);
     }
 
-    if (currentRoundUrimTotal > currentRoundThummimTotal) {
-      currentRoundWinner = 'U'
-    } else if (currentRoundThummimTotal > currentRoundUrimTotal) {
-      currentRoundWinner = 'T'
-    } else {
-      currentRoundWinner = 'even'
-    }
+    currentRoundWinner = whichIsGreater(currentRoundUrimTotal, currentRoundThummimTotal);
 
     draws.push(currentRoundDraw);
     rounds.push(['Round ' + (i + 1), currentRoundWinner]);
   }
 
   totalRoundsWinner = calculateRoundWinner(rounds);
+  totalUrimAndThummim['Winner'] = whichIsGreater(totalUrimAndThummim.Urim, totalUrimAndThummim.Thummim)
 
   console.log('Showing draws: ', draws);
   console.log('Showing total Urim and Thummim : ', totalUrimAndThummim);
@@ -72,13 +67,7 @@ function calculateRoundWinner(rounds) {
     }
   }
 
-  if(roundTotalUrim > roundTotalThummim) {
-    totalRoundsWinner = 'Urim';
-  } else if (roundTotalThummim > roundTotalUrim) {
-    totalRoundsWinner = 'Thummim';
-  } else {
-    totalRoundsWinner = 'Even';
-  }
+  totalRoundsWinner = whichIsGreater(roundTotalUrim, roundTotalThummim)
 
   return totalRoundsWinner;
 }
@@ -107,4 +96,18 @@ function getUrimOrThummim() {
   return returnVal;
 }
 
-advancedCoinToss(3, 3);
+function whichIsGreater (urimNum, thumminNum) {
+  let greaterIs;
+
+  if(urimNum > thumminNum) {
+    greaterIs = 'U';
+  } else if (thumminNum > urimNum) {
+    greaterIs = 'T';
+  } else {
+    greaterIs = 'Even';
+  }
+
+  return greaterIs; 
+}
+
+advancedCoinToss(777, 777);
